@@ -18,6 +18,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var intenlt:Intent
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
         Actvitypermission()
         nchannelcreate()
@@ -47,9 +49,16 @@ class MainActivity : AppCompatActivity() {
         val viewmodel=ViewModelProvider(this,viewmodelfactory(shrd)).get(MViewModel::class.java)
         val steps=viewmodel.getsteps();
         val pbar=findViewById<ProgressBar>(R.id.progressBar)
-        pbar.max=100;
-        //pbar.progress=steps
+        val calview=findViewById<ProgressBar>(R.id.progressBar2)
+        val stepview=findViewById<TextView>(R.id.stepsinprogress)
+        val caltext=findViewById<TextView>(R.id.calv)
+        pbar.max=1000;
         pbar.setProgress(steps)
+        stepview.text="$steps steps"
+        val cal=steps.toDouble()*(35.toDouble()/1000)
+        calview.max=100;
+        calview.setProgress(cal.toInt())
+        caltext.text="$cal calories"
 
 
     }
